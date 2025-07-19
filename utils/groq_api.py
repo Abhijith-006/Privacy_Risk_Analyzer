@@ -2,9 +2,11 @@ from groq import Groq
 import os
 from dotenv import load_dotenv
 
-load_dotenv()  # load .env variables
+api_key = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
+if not api_key:
+    raise ValueError("GROQ_API_KEY is not set in Streamlit Secrets or environment variables.")
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+client=Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 
 def analyze_text_with_groq(text: str)->str:
